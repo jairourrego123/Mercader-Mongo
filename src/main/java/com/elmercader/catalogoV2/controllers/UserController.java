@@ -34,11 +34,12 @@ public class UserController {
 
     }
     @GetMapping("/emailexist/{email}")
-    public Optional<User> getUserByEmail(@PathVariable("email") String email){
+    public Boolean getUserByEmail(@PathVariable("email") String email){
         return userServices.getUserByEmail(email);
     }
     @GetMapping("/{email}/{password}")
     public Optional<User> validateUserLogin(@PathVariable("email") String email, @PathVariable("password") String password){
+
         return userServices.validateUserLogin(email,password);
     }
 
@@ -52,7 +53,7 @@ public class UserController {
         return userServices.updateUser(user);
     }
 
-    @DeleteMapping("/delete/{userId}")
+    @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Integer userId){
         userServices.deleteUser(userId);
     }

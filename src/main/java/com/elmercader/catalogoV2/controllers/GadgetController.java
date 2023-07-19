@@ -15,49 +15,57 @@ public class GadgetController {
     private GadgetServices gadgetServices;
 
     @GetMapping("/all")
-    public List<Gadget> getAllGadget() {
+    public List<Gadget> getAllGadgets(){
         return gadgetServices.getAllGadgets();
     }
 
     @GetMapping("/category/{category}")
-    public List<Gadget> getAllGadgetByCategory(@PathVariable("category") String category) {
-        return gadgetServices.getGadgetCByCategory(category);
+    public List<Gadget> getGadgetsByCategory(@PathVariable("category") String category){
+        return gadgetServices.getGadgetsByCategory(category);
     }
 
     @GetMapping("/name/{name}")
-    public List<Gadget> getGadgetByName(@PathVariable("name") String name) {
-        return gadgetServices.getGadgetByName(name);
+    public List<Gadget> getGadgetsByName(@PathVariable("name") String name){
+        return gadgetServices.getGadgetsByName(name);
+    }
 
+    @GetMapping("/description/{keyword}")
+    public List<Gadget> getGadgetsByDescription(@PathVariable("keyword") String keyword){
+        return gadgetServices.getGadgetsByDescription(keyword);
+    }
+
+    @GetMapping("/price/{maxPrice}")
+    public List<Gadget> getGadgetsByMaxPrice(@PathVariable("maxPrice") Double maxPrice){
+        return gadgetServices.getGadgetsByMaxPrice(maxPrice);
     }
 
     @GetMapping("/price/{minPrice}/{maxPrice}")
-    public List<Gadget> getGadgetByPriceRange(@PathVariable("minPrice") Double minPrice,@PathVariable("maxPrice") Double maxPrice) {
-        return gadgetServices.getGadgetByPriceRange(minPrice, maxPrice);
+    public List<Gadget> getGadgetsByPriceRange(@PathVariable("minPrice") Double minPrice, @PathVariable("maxPrice") Double maxPrice){
+        return gadgetServices.getGadgetsByPriceRange(minPrice, maxPrice);
     }
 
     @GetMapping("/availability/{availability}")
-    public List<Gadget> getGadgetByAvailability(@PathVariable("availability") boolean availability) {
+    public List<Gadget> getGadgetsByAvailability(@PathVariable("availability") Boolean availability){
         return gadgetServices.getGadgetsByAvailability(availability);
-
     }
 
-    @GetMapping("/gadgetId")
-    public Optional<Gadget> getGadgetById(@PathVariable("gadgetId") Integer gadgetId) {
+    @GetMapping("/{gadgetId}")
+    public Optional<Gadget> getGadgetById(@PathVariable("gadgetId") Integer gadgetId){
         return gadgetServices.getGadgetById(gadgetId);
     }
+
     @PostMapping("/new")
-    public Gadget insertGadget(@RequestBody Gadget gadget) {
+    public Gadget insertGadget(@RequestBody Gadget gadget){
         return gadgetServices.insertGadget(gadget);
     }
+
     @PutMapping("/update")
-    public Gadget updateGadget(@RequestBody Gadget gadget) {
-        return  gadgetServices.updateGadget(gadget);
+    public Gadget updateGadget(@RequestBody Gadget gadget){
+        return gadgetServices.updateGadget(gadget);
     }
 
-    @DeleteMapping("/{gadget_id}")
-    public void deleteGadget(@PathVariable("gadget_id") Integer gadgetId){
+    @DeleteMapping("/{gadgetId}")
+    public void deleteGadget(@PathVariable("gadgetId") Integer gadgetId){
         gadgetServices.deleteGadget(gadgetId);
     }
-}
-
 }
