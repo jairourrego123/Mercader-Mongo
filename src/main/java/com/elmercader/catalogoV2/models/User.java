@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     private Integer id;
+    private String identification;
     private String name;
     private String address;
     private String cellPhone;
