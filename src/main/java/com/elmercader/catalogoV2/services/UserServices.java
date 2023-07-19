@@ -5,11 +5,12 @@ import com.elmercader.catalogoV2.repositories.UserRepository;
 import org.springframework.beans.InvalidPropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-
+@Service
 public class UserServices {
     @Autowired
     private UserRepository userRepository;
@@ -31,20 +32,22 @@ public class UserServices {
 
         return userRepository.getUserById(id);
     }
-    public Optional<User> getUserByEmail(String email){
+    public Boolean getUserByEmail(String email){
         if(Utilities.validateEmail(email)){
-            return userRepository.getUserByEmail(email);
+            return userRepository.getUserByEmail(email).isPresent()?true:false;
         }
         else {
 
           // TODO add a nice exception
-            return null;
+            return false;
         }
     }
     public Optional<User> validateUserLogin(String email, String password){
-
+        System.out.println(email+ " "+password);
         if (Utilities.validateEmail(email)){
+
             if (password.length()>=6)
+
                 return userRepository.validateLogin(email,password);
             else
                 return null;
@@ -57,9 +60,10 @@ public class UserServices {
         if(Utilities.validateEmail(user.getEmail())){
 
             Optional<User> temp = userRepository.getUserByEmail(user.getEmail());
+
             if(temp.isEmpty()) {
-                user.setType(user.getType().toLowerCase());
-                user.setZone(user.getZone().toLowerCase());
+                user.setType(user.getType().toUpperCase());
+                user.setZone(user.getZone().toUpperCase());
                 return userRepository.save(user);
             }
             else
@@ -85,6 +89,7 @@ public class UserServices {
                 tempUser.get().setZone(user.getZone());
             if (user.getType()!= null)
                 tempUser.get().setType(user.getType());
+
             return userRepository.save(tempUser.get());
         }
         else

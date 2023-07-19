@@ -34,7 +34,7 @@ public class Utilities {
      * @return True if regex is correct
      */
     public static boolean validateEmail(String email){
-        String emailPattern = "[a-z][a-z0-9_]*@(gmail.com|outlook.com)";
+        String emailPattern = "[a-z][a-z0-9_]*@(gmail.com|outlook.com|usa.edu.co)";
         return validateRegex(emailPattern,email);
     }
 
