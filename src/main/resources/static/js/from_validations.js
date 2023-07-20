@@ -4,7 +4,7 @@ function nameValidation(name) {
 };
 
 function emailValidation(email) {
-    const pattern = /^[a-z][a-z.0-9]*@usa.edu.co/
+    const pattern = /^[a-z][a-z.0-9]*@(usa.edu.co|gmail.com)/
     return pattern.test(email)
     
 };
