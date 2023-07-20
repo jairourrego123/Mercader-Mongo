@@ -3,7 +3,7 @@ let user = null
 
 function getUserByEmail(email) {
     $.ajax({
-        url: URL_BASE+"/api/user/"+email,
+        url: URL_BASE+"/api/user/emailexist/"+email,
         type:"GET",
         datatype:"JSON"
     })
@@ -17,6 +17,7 @@ function getUserByEmail(email) {
     })
 };
 function createUser() {
+    let id = document.getElementById("txtId").value;
     let identification = document.getElementById("txtIdentification").value;
     let name = document.getElementById("txtName").value;
     let address = document.getElementById("txtAddress").value;
@@ -33,9 +34,15 @@ function createUser() {
             if (newPasswordValidation(password,confirmedPassword) ) {
                 if(!getUserByEmail(email)){
                     user ={
-                        userName:name,
-                        userEmail:email,
-                        userPassword: password
+                        id:id,
+                        identification:identification,
+                        name:name,
+                        address:address,
+                        cellphone:cellphone,
+                        email:email,
+                        zone:zone,
+                        type:type,
+                        password: password
                     };
 
                 let body = JSON.stringify(user);
@@ -49,7 +56,10 @@ function createUser() {
                         })
                         .done(function(response){
                                console.log(response)
-                               alert("Usuario registrado Correctamente")
+                               if(response)
+                                    alert("Cuenta creada de forma correcta")
+                               else
+                                     alert("No fue posible crear la cuenta ")
                         })
                         .fail(function(jqXHR,textStatus,errorThrown){
                             console.log("Error en createUser. "+textStatus)
