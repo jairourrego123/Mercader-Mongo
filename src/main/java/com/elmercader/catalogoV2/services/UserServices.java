@@ -34,7 +34,7 @@ public class UserServices {
     }
     public Boolean getUserByEmail(String email){
         if(Utilities.validateEmail(email)){
-            return userRepository.getUserByEmail(email).isPresent()?true:false;
+            return userRepository.getUserByEmail(email).isPresent();
         }
         else {
 
@@ -45,10 +45,15 @@ public class UserServices {
     public Optional<User> validateUserLogin(String email, String password){
         System.out.println(email+ " "+password);
         if (Utilities.validateEmail(email)){
-
-            if (password.length()>=6)
-
-                return userRepository.validateLogin(email,password);
+            if (password.length()>=6) {
+                Optional<User> temp = userRepository.validateLogin(email, password);
+                if (temp.isPresent())
+                    return temp;
+                else{
+                    User user = new User();
+                    return Optional.of(user);
+                }
+            }
             else
                 return null;
         }
@@ -82,7 +87,7 @@ public class UserServices {
             if(user.getAddress()!=null)
                 tempUser.get().setAddress(user.getAddress());
             if(user.getCellPhone()!= null)
-                tempUser.get().setCellPhone(user.getPassword());
+                tempUser.get().setCellPhone(user.getCellPhone());
             if (user.getPassword()!=null)
                 tempUser.get().setPassword(user.getPassword());
             if(user.getZone()!=null)
