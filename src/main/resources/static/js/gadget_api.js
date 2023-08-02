@@ -7,7 +7,9 @@ $(document).ready( function(){
 
 
 })
+function getGadget(idGadget){
 
+}
 function openModal(idGadget){
 
     if(idGadget==-1){
@@ -48,7 +50,7 @@ function closeModal(){
     $("#modalProducts").hide();
 }
 function updateTableGadget(gadget){
-    $("#tableGadet").find("tr:gt(0)").remove(); // modifica despues de la primera fila
+    $("#tableGadget").find("tr:gt(0)").remove(); // modifica despues de la primera fila
     let data = ""
     for (let i = 0;i<gadget.length;i++){
     data += "<tr>"
@@ -86,22 +88,22 @@ function getAllGadgets(){
 
 }
 
-function createGadgets(){
+function insertGadget(){
     gadget = {
-        id : $("#numberProductId").val(""),
-         brand :$("#textBrand").val(""),
-         category : $("#txtCategory").val(""),
-         name : $("#txtNameProduct").val(""),
-         description : $("#txtDescription").val(""),
-         price : $("#numberPrice").val(""),
-         availability : $("#txtAvailability").val(""),
-         quantity : $("#numberQuantity").val(""),
-         photography : $("#textPhotography").val("")
+        id : $("#numberProductId").val(),
+         brand :$("#textBrand").val(),
+         category : $("#txtCategory").val(),
+         name : $("#txtNameProduct").val(),
+         description : $("#txtDescription").val(),
+         price : $("#numberPrice").val(),
+         availability : $("#txtAvailability").val(),
+         quantity : $("#numberQuantity").val(),
+         photography : $("#textPhotography").val()
 
     }
 
     let body = JSON.stringify(gadget)
-    console.log(data);
+    console.log(body);
 
     $.ajax({
 
@@ -115,14 +117,58 @@ function createGadgets(){
         console.log(response)
         if(response){
             alert("Producto creado correctamente.")
-            getAllGadgets()}
+            getAllGadgets();
+            closeModal();}
         else
             alert("No se ha podido crear el producto")
     })
 
     .fail(function(jqXHR,textStatus,errorThrown){
-        console.log("Error en createGadgets. " + textStatus)
+        console.log("Error en insertGadgets. " + textStatus)
         alert("No se ha podido crear el producto. "+ textStatus)
 
     })
+}
+
+function updateGadget(){
+ gadget = {
+
+         brand :$("#textBrand").val(),
+         category : $("#txtCategory").val(),
+         name : $("#txtNameProduct").val(),
+         description : $("#txtDescription").val(),
+         price : $("#numberPrice").val(),
+         availability : $("#txtAvailability").val(),
+         quantity : $("#numberQuantity").val(),
+         photography : $("#textPhotography").val()
+
+    }
+
+    let body = JSON.stringify(gadget)
+    console.log(body);
+
+    $.ajax({
+
+        url: URL_BASE + "/update",
+        type: "POST",
+        datatype: "JSON",
+        data : body,
+        contentType: "application/json; charset-UTF-8"
+    })
+    .done(function(response){
+        console.log(response)
+        if(response){
+            alert("Producto modificado correctamente.")
+            getAllGadgets();
+            closeModal();}
+        else
+            alert("No se ha podido modificar el producto")
+    })
+
+    .fail(function(jqXHR,textStatus,errorThrown){
+        console.log("Error en updateGadget. " + textStatus)
+        alert("No se ha podido modificar el producto. "+ textStatus)
+
+    })
+
 }
