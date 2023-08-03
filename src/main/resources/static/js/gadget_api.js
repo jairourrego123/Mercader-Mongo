@@ -7,13 +7,12 @@ $(document).ready( function(){
 
 
 })
-function getGadget(idGadget){
 
-}
 function openModal(idGadget){
 
     if(idGadget==-1){
-        $("modal-title").html("Nuevo Producto")
+
+        $("#modalTitle").html("Nuevo Producto")
         $("#btnAddProduct").show();
         $("#btnUpdateProduct").hide();
         $("#numberProductId").val(""),
@@ -29,19 +28,22 @@ function openModal(idGadget){
 
     }
     else {
-            $("modal-title").html("Actualizar Producto")
+
+           $("#modalTitle").html("Actualizar Producto")
+           getGadget(idGadget)
+
            $("#btnAddProduct").hide();
            $("#btnUpdateProduct").show();
-           $("#numberProductId").val(""),
+           $("#numberProductId").val(gadget.id),
            $("#numberProductId").prop("disabled",true),
-           $("#textBrand").val(""),
-           $("#txtCategory").val(""),
-           $("#txtNameProduct").val(""),
-           $("#txtDescription").val(""),
-           $("#numberPrice").val(""),
-           $("#txtAvailability").val(""),
-           $("#numberQuantity").val(""),
-           $("#textPhotography").val("")
+           $("#textBrand").val(gadget.brand),
+           $("#txtCategory").val(gadget.category),
+           $("#txtNameProduct").val(gadget.name),
+           $("#txtDescription").val(gadget.description),
+           $("#numberPrice").val(gadget.price),
+           $("#txtAvailability").val(gadget.availability),
+           $("#numberQuantity").val(gadget.quantity),
+           $("#textPhotography").val(gadget.photography)
     }
     $("#modalProducts").show();
 
@@ -63,14 +65,33 @@ function updateTableGadget(gadget){
     data += "<td>"+ gadget[i].availability+"</td>"
     data += "<td>"+ gadget[i].quantity+"</td>"
     data += "<td>"+ gadget[i].photography+"</td>"
-    data += "<td>Actualizar</td>"
-    data += "<td>Delete</td>"
+    data += "<td onclick=\"openModal("+gadget[i].id+")\">Actualizar</td>"
+    data += "<td onclick=\"deleteGadget("+gadget[i].id+")\">Eliminar</td>"
     data += "</tr>"
     }
     $("#tableGadget > tbody:last-child").append(data);
     console.log(data)
 }
+function getGadget(idGadget){
+    $.ajax({
+        url: URL_BASE + "/"+idGadget,
+        type : "GET",
+        datatype : "JSON",
+        async:false
 
+    })
+    .done(function(response){
+        console.log(response)
+        gadget=response;
+        console.log(gadget)
+
+    })
+    .fail(function(jqXHR,textStatus,errorThrown){
+        console.log("Error in getGadget. "+ textStatus);
+        alert("Hemos obtenido una falla obteniedo la informacion del producto. Por favor intente mastarde.")
+
+    })
+}
 function getAllGadgets(){
     $.ajax({
         url: URL_BASE + "/all",
@@ -132,7 +153,7 @@ function insertGadget(){
 
 function updateGadget(){
  gadget = {
-
+         id : $("#numberProductId").val(),
          brand :$("#textBrand").val(),
          category : $("#txtCategory").val(),
          name : $("#txtNameProduct").val(),
@@ -150,7 +171,7 @@ function updateGadget(){
     $.ajax({
 
         url: URL_BASE + "/update",
-        type: "POST",
+        type: "PUT",
         datatype: "JSON",
         data : body,
         contentType: "application/json; charset-UTF-8"
@@ -171,4 +192,28 @@ function updateGadget(){
 
     })
 
+}
+
+function deleteGadget(idGadget){
+
+   $.ajax({
+
+        url:URL_BASE + "/"+idGadget,
+        type: "DELETE",
+        datatype: "JSON"
+
+   })
+
+   .done(function(response){
+
+    console.log(response)
+    getAllGadgets();
+    alert("Producto Eliminado Correctamente")
+
+
+   })
+   .fail(function(jqXHR,textStatus,errorThrown){
+    console.log("Error in deleteGadget. "+ textStatus )
+    alert("No se ha podido eliminar este producto. Por favor intente mas tarde.")
+   })
 }
