@@ -46,9 +46,16 @@ public class UserServices {
         System.out.println(email+ " "+password);
         if (Utilities.validateEmail(email)){
 
-            if (password.length()>=6)
+            if (password.length()>=6) {
+                Optional<User> temp_1 = userRepository.validateLogin(email,password);
+                if (temp_1.isPresent())
+                    return temp_1;
+                else{
+                    User user = new User();
+                    return Optional.of(user);
+                }
 
-                return userRepository.validateLogin(email,password);
+            }
             else
                 return null;
         }
@@ -68,6 +75,7 @@ public class UserServices {
             }
             else
                 //TODO use a better exception
+
                 return user;
         }
         else
@@ -82,7 +90,7 @@ public class UserServices {
             if(user.getAddress()!=null)
                 tempUser.get().setAddress(user.getAddress());
             if(user.getCellPhone()!= null)
-                tempUser.get().setCellPhone(user.getPassword());
+                tempUser.get().setCellPhone(user.getCellPhone());
             if (user.getPassword()!=null)
                 tempUser.get().setPassword(user.getPassword());
             if(user.getZone()!=null)
