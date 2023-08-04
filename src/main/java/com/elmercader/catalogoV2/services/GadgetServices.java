@@ -98,7 +98,7 @@ public class GadgetServices {
         Optional<Gadget> tempGadget = gadgetRepository.getGadgetById(gadget.getId());
         if(tempGadget.isPresent())
             return gadget;
-        gadget.setDescription( gadget.getDescription().toLowerCase() );
+        /*gadget.setDescription( gadget.getDescription().toLowerCase() );*/
         if(gadget.getPrice() >= 0 && gadget.getQuantity() >= 0)
             return gadgetRepository.save(gadget);
         else
