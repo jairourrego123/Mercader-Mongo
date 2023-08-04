@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" CONTENT="IE-Edge">
+    <meta name="autor" content="Jairo Urrego">
+    <base href="/" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/gadget_api.js"></script>
+    <title>El Mercader Ltda.</title>
+</head>
+
+<body>
+    <header>
+
+        <nav>
+
+            <img src="public/logo.png" id="logo">
+
+
+            <a href="usuarios.html">Usuarios</a>
+            <a href="productos.html">Productos</a>
+            <a href="login.html" id="closeSesion">Cerrar Sesi&oacute;n</a>
+            
+        </nav>
+
+
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1 col-3"></div>
+            <div class="col-sm-10 col-6">
+                <button class="button-form" id="buttonInsertProductos" onclick="openModal(-1)">Crear</button>
+                <table id="tableGadget" class="tbData">
+                    <thead>
+                        <tr>
+                            <th> Id</th>
+                            <th> Brand </th>
+                            <th> Categoria</th>
+                            <th> Nombre</th>
+                            <th> Descripci&oacute;n </th>
+                            <th> Precio</th>
+                            <th> Disponibilidad</th>
+                            <th> Cantidad</th>
+                            <th> Fotografia</th>
+                            <th> Actualizar</th>
+                            <th> Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+
+                <div id="modalProducts" class="modal">
+                    <div class="modal-content">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 id="modalTitle"></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label >Id Producto</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="number" value="" id="numberProductId">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label >Brand</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="text" value="" id="textBrand">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label>Categoria</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="text" value="" id="txtCategory">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label >Nombre</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="text" value="" id="txtNameProduct">
+                            </div>
+                                
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label>Descripción</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="text" value="" id="txtDescription">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label>Precio</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="number" value="" id="numberPrice">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label>Disponibilidad</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="text" value="" id="txtAvailability">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label >Cantidad</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="number" value="" id="numberQuantity">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 right">
+                                <label>Fotografia</label>
+                            </div>
+                            <div class="col-6 left">
+                                <input type="text" value="" id="textPhotography">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col buttonsForm">
+                                <button id="btnAddProduct" class="btnAdd" onclick="insertGadget();"> Agregar</button>
+                                <button id="btnUpdateProduct" class="btnUpdate" onclick="updateGadget();">Actualizar</button>
+                                <button id="btnClosedModal" class="btnClose" onclick="closeModal();">Cancelar</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+        </div>
+    </div>
+            <div class="col-sm-1 col-3"></div>
+        </div>
+    </div>
+    <footer>
+        &copy;Todos a la U
+    </footer>
+</body>
+
+</html>
