@@ -85,6 +85,8 @@ public class UserServices {
 
         Optional<User> tempUser = userRepository.getUserById(user.getId());
         if(tempUser.isPresent()){
+            if(user.getEmail() !=null)
+                tempUser.get().setEmail(user.getEmail());
             if(user.getName() != null)
                 tempUser.get().setName(user.getName());
             if(user.getAddress()!=null)
